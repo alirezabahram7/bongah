@@ -1,0 +1,92 @@
+<?php
+use MPCO\EnglishPersianNumber\Numbers;
+
+    $myid=0;
+?>
+    @if($colcounter==1)
+<br>
+  <div class="row">
+      @endif
+    <div class="col-sm">
+     
+    
+
+
+ 
+            <div class="col">
+            <div class="card card-columns center" style="width: 18rem;">
+<div style="position:relative;">
+    <a href="{{route('house.card',['id'=>$data->id])}}">
+                @if($data->photo!=null)
+                    <img class="card-img-top" src='{{$data->photo}}' alt="Card image cap">
+                    @else
+                    <img class="card-img-top" src='/pic/noimg.png' alt="Card image cap">
+                    @endif
+                    </a>
+                    <div style="position: absolute;left:0;top:0; background-color:rgba(255,255,255,0.2);" class="col-md-12">
+                    @if(Auth::check())
+                    <?php
+                        $myid=auth()->user()->id;  
+                        ?>
+                        @if(!$data->favouritedBy(Auth::user()))
+                            <a href="{{route('fav.save',['hid'=>$data->id])}}" data-toggle="tooltip"><i onclick="tglbkmrk(this)" class="fa fa-bookmark-o center"></i></a>
+                        @else
+                            <a href="{{route('fav.destroy',['hid'=>$data])}}" data-toggle="tooltip"><i onclick="tglbkmrk(this)" class="fa fa-bookmark center"></i></a>
+                        @endif
+                    @endif
+</div></div>
+            <a href="{{route('house.card',['id'=>$data->id])}}">
+
+                <div class="card-body">
+              
+                    <?php
+                        $cost=Numbers::toPersianNumbers($data->cost, true); // ۱,۵۱۳,۲۱۵
+                        $rent=Numbers::toPersianNumbers($data->rent, true);
+                        $meterage=Numbers::toPersianNumbers($data->meterage, true);
+                        $rooms=Numbers::toPersianNumbers($data->rooms, true);
+                    ?>
+    
+                    @if($rors==1)
+                        <h5 class="card-title">قیمت:{{$cost}}  تومان</h5>
+                    @else
+                        <h5 class="card-title">رهن:{{$cost}}  تومان</h5>
+                        <h5 class="card-title">اجاره:{{$rent}}  تومان</h5>
+                    @endif
+                    <p class="card-text">{{$data->address}}</p>
+                    <p class="card-text">{{$data->type}} *  {{$meterage}}متری  * {{$rooms}} خوابه</p>
+                    <p class="card-text">{{$data->cities['city']}} * {{$data->location['district']}}</p>
+                    <div class="card-footer text-muted bluediv" dir="rtl">
+                        <span class="pull-left" style="color:black;" dir="rtl">
+
+                            <?php
+                                $v1= Verta::now();
+                                $dt =$data->created_at;
+                                $v2=new Verta($dt);
+                                $v3=$v2->formatDifference($v1);
+                                echo Numbers::toPersianNumbers($v3);
+                            ?>
+                            
+                        </span>
+                        @if($data->user['id']==$myid)
+                            <span class="pull-right"><a href="{{route('house.edit',['id'=>$data->id])}}"><i class="fa fa-edit"></i></a></span>
+                        @else
+                            <a href="{{route('profile.show',['id'=>$data->user['id']])}}">
+                                <span class="pull-right">
+                                    @if($data->user->profile['photo']!=null)
+                                        <img title="{{$data->user['name']}}" class="img-thumbnail rounded-circle img-responsive" style="width:50px" src="{{$data->user->profile['photo']}}">
+                                    @else
+                                        <img title="{{$data->user['name']}}" class="img-thumbnail rounded-circle img-responsive" style="width:50px" src="/pic/nopro.png">
+                                    @endif
+                                </span>
+                            </a>
+                        @endif
+                    </div>
+                
+                </div>
+            </a>
+        </div>
+
+
+            
+</div></div>
+           

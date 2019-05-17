@@ -1,0 +1,1 @@
+[21-Nov-2018 12:38:04 UTC] PHP Fatal error:  Class 'files\App\Http\Controllers\Controller' not found in /home2/bongahne/public_html/test/files/app/Http/Controllers/HouseController.php on line 14

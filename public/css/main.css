@@ -1,0 +1,312 @@
+@font-face {
+    font-family: 'IRANSansWeb';
+    src: url("font/IRANSansWeb.woff") format("woff");
+  }
+  body{
+    font-family: 'IranianSansRegular'; 
+    font-weight: normal; 
+    font-style: normal; 
+  }
+  a{
+    font-family: 'IranianSansRegular'; 
+    font-weight: normal; 
+    font-style: normal;
+    color:black;
+  }
+.mainbody{
+  background-image: "mainImg/bk4.jpg";
+  background-repeat: no-repeat;background-attachment: fixed; background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+  navbar{
+    font-family: 'IranianSansRegular'; 
+    font-weight: normal; 
+    font-style: normal; 
+  }
+li.mainnav a{
+  font-family: 'IranianSansRegular'; 
+    font-weight: bold; 
+  color: black;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+li.mainnav a.active{
+ background-color: #3FBFBF; 
+  color: black;
+}
+li.mainnav a:hover{
+
+  color: #3FBFBF;}
+  li.mainnav a:active{
+    background-color: #3FBFBF; 
+    color: black;}
+
+  .iransans{
+    font-family: 'IranianSansRegular'; 
+    font-weight: normal; 
+    font-style: normal; 
+  }
+  .backgroundset{
+  
+    background-color: rgba(0,0,0,.6);
+  }
+
+  .bluediv{
+    background-color: #3FBFBF; 
+    color: black;}
+ 
+      /*=== header  #2 ===*/
+      #header2 {
+        position: relative;
+        min-width: 100vw;
+        min-height: 95vh;
+       
+        z-index: 0;
+      }
+      #header2 .box {
+        position: absolute;
+        content: '';
+        width: 25%;
+        height: 50%;
+        top: 15%;
+        left: 50%;
+        transform:translate(-30%, 0%);
+        z-index: 1;
+        
+      }
+      #header2 .caption {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform:translate(-10%, 0%);
+        color: #000;
+        font-weight: 600;
+        font-size: 6rem; 
+        background-color: #ffffff;
+        z-index: 2;
+        padding: 10px;
+      }
+      #header2 img {
+        position: absolute;
+        top: 0%;
+        left: 20%;
+        height: 100%;
+        z-index: 3;
+      }
+      #header2 .action {
+        position: absolute;
+        top: 75%;
+        left: 55%;
+        transform:translate(-50%,-50%);
+        text-align: center;
+        z-index: 4;
+        padding-right: 25px;
+        padding-left: 25px; 
+           
+      }
+
+      .center {
+        margin: auto;
+        width: 50%;
+        border: none;
+       
+    }  
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:#eeeeee;
+    color: black;
+    text-align: center;
+}
+
+ /* Style all font awesome icons */
+ .fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+}
+
+ul.mynav{
+
+  margin:auto;background-color:rgba(0,0,0,0.6);
+}
+ li.mynav{
+  float: left;
+  border-left: 1px solid #bbb;
+ }
+ li.mynav a{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+ }
+ li.mynav a:hover:not(.active) {
+  background-color: #000000;
+  opacity:1;
+  z-index:1;
+}
+ li.mynav a.active{
+   background-color:#3FBFBF;
+   opacity:0.9;
+ }
+/* Add a hover effect if you want */
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-bookmark-o{
+  color: darkred;
+}
+.fa-bookmark{
+  color: darkgreen;
+}
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+/* Twitter */
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+} 
+
+.fa-google-plus{
+  background: darkred;
+  color: #ffffff;
+}
+
+.fa-linkedin{
+  background:midnightblue;
+  color: #ffffff;
+}
+
+.fa-instagram{
+  background:rgb(247, 0, 115);
+  color: #ffffff;
+}
+
+@font-face {
+  font-family: 'IRANSansWeb';
+  src: url("font/IRANSansWeb.woff") format("woff");
+}
+::placeholder {
+font-family: 'IRANSansWeb';
+  src: url("font/IRANSansWeb.woff") format("woff");
+  text-align: center;
+}
+
+#mapid { height: 180px; }
+
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 12px;
+}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+
+  cursor: pointer;
+
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+
+  right: 0px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.popup-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.popup-container input[type=text]{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.popup-container input[type=text]:focus,{
+  background-color: #ddd;
+  outline: none;
+}
+
+
+#back2Top {
+    width: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    z-index: 999;
+    display: none;
+    cursor: pointer;
+    -moz-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    color: #330033;
+    background-color:white;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+}
+#back2Top:hover {
+    color: #000;
+}
+
+#back2Down {
+    width: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    z-index: 999;
+    display: none;
+    cursor: pointer;
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    color: #330033;
+        background-color:white;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+}
+#back2Down:hover {
+    color: #000;
+}
