@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 use App\User;
-use App\house;
+use App\House;
 use App\profile;
 use App\location;
 use App\city;
@@ -33,7 +33,7 @@ class HouseController extends Controller
 
     public function myhouses(){
         
-        return view('pages/myhouses', ['house' => house::all()]);
+        return view('pages/myhouses', ['house' => House::all()]);
     }
     public function card($id){
         
@@ -66,23 +66,11 @@ class HouseController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
 
-            //'photo' => 'required',
-            //'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+       /* $location=App\location::firstOrNew(['district'=>$request->location],['city_id'=>$city->id]);
+        $location->save();*/
 
-    ]);
-       
-        
-        $city=App\city::firstOrNew(['city'=>$request->city]);
-        $city->save();
-        $location=App\location::firstOrNew(['district'=>$request->location],['city_id'=>$city->id]);
-        $location->save();
-
-        $house = new house;
-
-        //$house->location['district']=$request->location;
-        //$house->cities['city']=$request->city;
+        $house = new House;
 
         $house->user_id =auth()->user()->id;
         $house->build_year=$request->year;
@@ -95,6 +83,8 @@ class HouseController extends Controller
         $house->cost=$request->cost;
         $house->meterage=$request->meterage;
         $house->comment=$request->comment;
+        $house->lat=$request->lat;
+        $house->long=$request->long;
 
         if(!$request->sell)
         {
@@ -104,27 +94,25 @@ class HouseController extends Controller
             $house->rent=0;
         }
         
-        $house->city=$city->id;
-        $house->location_id=$location->id;
-       
-        
-        if($request->hasfile('photo'))
-        {
+        $house->city=12;
+        $house->location_id=12;
 
-           foreach($request->file('photo') as $image)
-           {
-               $name=$image->getClientOriginalName();
-               $image->move(public_path().'/pic/', $name);  
-               $data[] =$name;  
-           }
+        $data='';
+        if($request->hasfile('photo')) {
+
+            foreach ($request->file('photo') as $file) {
+                $name = uniqid() . '.' . $file->getClientOriginalExtension();
+                $uname = str_replace(' ', '_', $name);
+                $file->move(public_path() . '/pic/', $uname);
+                if ($data == '') {
+                    $data = $uname;
+                } else {
+                    $data = $data . ',' . $uname;
+                }
+            }
+
+            $house->photo = $data;
         }
-
-        
-        $house->photo=json_encode($data);
-        
-       
-  
-       
         if($request->parking)
         {
             $house->parking=1;
@@ -170,10 +158,9 @@ class HouseController extends Controller
             $house->RentorSell=1;
         }
 
-
-
         $house->save();
-        return back()->with('success', 'Your images has been successfully added');
+        //dd($house);
+        return redirect('/myhouses')->with('success', 'خانه شما با موفقیت ثبت شد');
 
     }
 

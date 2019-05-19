@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class house extends Model
 {
-    //
+    protected $table = 'houses';
     protected $guarded = [];
     
     public function user(){

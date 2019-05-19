@@ -1,12 +1,15 @@
-@font-face {
-    font-family: 'IRANSansWeb';
-    src: url("font/IRANSansWeb.woff") format("woff");
-  }
+
   body{
     font-family: 'IranianSansRegular'; 
     font-weight: normal; 
-    font-style: normal; 
+    font-style: normal;
+      direction: rtl;
   }
+
+  div.row{
+      margin: auto;
+  }
+
   a{
     font-family: 'IranianSansRegular'; 
     font-weight: normal; 
@@ -199,13 +202,8 @@ ul.mynav{
   color: #ffffff;
 }
 
-@font-face {
-  font-family: 'IRANSansWeb';
-  src: url("font/IRANSansWeb.woff") format("woff");
-}
 ::placeholder {
 font-family: 'IRANSansWeb';
-  src: url("font/IRANSansWeb.woff") format("woff");
   text-align: center;
 }
 
@@ -255,7 +253,7 @@ font-family: 'IRANSansWeb';
 }
 
 /* When the inputs get focus, do something */
-.popup-container input[type=text]:focus,{
+.popup-container input[type=text]:focus{
   background-color: #ddd;
   outline: none;
 }
