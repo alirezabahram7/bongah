@@ -66,7 +66,6 @@ class HouseController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
 
        /* $location=App\location::firstOrNew(['district'=>$request->location],['city_id'=>$city->id]);
         $location->save();*/
