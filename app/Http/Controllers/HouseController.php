@@ -66,11 +66,17 @@ class HouseController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
 
        /* $location=App\location::firstOrNew(['district'=>$request->location],['city_id'=>$city->id]);
         $location->save();*/
 
         $house = new House;
+
+        $house = new house;
+
+        //$house->location['district']=$request->location;
+        //$house->cities['city']=$request->city;
 
         $house->user_id =auth()->user()->id;
         $house->build_year=$request->year;
@@ -157,6 +163,8 @@ class HouseController extends Controller
         else{
             $house->RentorSell=1;
         }
+
+
 
         $house->save();
         //dd($house);
