@@ -19,12 +19,12 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar" >
      
       <ul class="container navbar-nav" >
-  
+
         <li class="nav-item mainnav">
         @if($page=='h')
-          <a class="nav-link active" href="/" >بنگاه</a>
+          <a class="nav-link active" href="/" ><img src="/mainImg/favicon-48.ico" style="width: 30px;height: 30px"></a>
         @else
-          <a class="nav-link" href="/" >بنگاه</a>
+          <a class="nav-link" href="/" ><img src="/mainImg/favicon-48.ico" style="width: 30px;height: 30px"></a>
         @endif
         </li>
         <li class="nav-item mainnav">
