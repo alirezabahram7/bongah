@@ -17,7 +17,7 @@ class HouseController extends Controller
     //
     public function show($rors){
         $req=null;
-        return view('pages/houses', ['house' => house::all(),'rors'=>$rors,'request'=>$req]);
+        return view('pages/houses', ['house' => house::all()->sortByDesc('created_at')->paginate(10),'rors'=>$rors,'request'=>$req]);
     }
 
     public function edit($id){
@@ -33,7 +33,7 @@ class HouseController extends Controller
 
     public function myhouses(){
         
-        return view('pages/myhouses', ['house' => House::all()]);
+        return view('pages/myhouses', ['house' => House::all()->sortByDesc('created_at')]);
     }
     public function card($id){
         
@@ -43,16 +43,14 @@ class HouseController extends Controller
     public function search(Request $request){
         
         if($request->state=='buy'){
-          return view('pages/houses', ['house' =>house::all(),'rors'=>1,'request'=>$request]);
+          return view('pages/houses', ['house' =>house::all()->sortByDesc('created_at'),'rors'=>1,'request'=>$request]);
     
         }
-
-        
         if($request->state=='rent'){
-            return view('pages/houses', ['house' => house::all(),'rors'=>0,'request'=>$request]);
+            return view('pages/houses', ['house' => house::all()->sortByDesc('created_at'),'rors'=>0,'request'=>$request]);
         }
         if($request->state=='agent'){
-            return view('pages/agents', ['profile' => profile::all(),'request'=>$request]);
+            return view('pages/agents', ['profile' => profile::all()->sortByDesc('created_at'),'request'=>$request]);
         }
         
     }
