@@ -11,13 +11,13 @@ $page='h';
     $myid=0;
   
     use MPCO\EnglishPersianNumber\Numbers;
-    $cost=Numbers::toPersianNumbers($house->cost, true); // ۱,۵۱۳,۲۱۵
-    $rent=Numbers::toPersianNumbers($house->rent, true);
-    $meterage=Numbers::toPersianNumbers($house->meterage, true);
-    $rooms=Numbers::toPersianNumbers($house->rooms);
-    $floor=Numbers::toPersianNumbers($house->floor);
-    $build_year=Numbers::toPersianNumbers($house->build_year);
-    $zipcode=Numbers::toPersianNumbers($house->zipcode);
+    $cost=Verta::persianNumbers($house->cost);
+    $rent=Verta::persianNumbers($house->rent);
+    $meterage=Verta::persianNumbers($house->meterage);
+    $rooms=Verta::persianNumbers($house->rooms);
+    $floor=Verta::persianNumbers($house->floor);
+    $build_year=Verta::persianNumbers($house->build_year);
+    $zipcode=Verta::persianNumbers($house->zipcode);
 
 ?>
 
@@ -156,7 +156,7 @@ $page='h';
                                 $dt =$house->created_at;
                                 $v2=new Verta($dt);
                                 $v3=$v2->formatDifference($v1);
-                                echo Numbers::toPersianNumbers($v3);
+                                echo Verta::persianNumbers($v3);
                             ?>
                         </li>
                 </ul> 

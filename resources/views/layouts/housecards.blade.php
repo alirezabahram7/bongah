@@ -1,5 +1,5 @@
 <?php
-use MPCO\EnglishPersianNumber\Numbers;
+use Hekmatinasser\Verta\Verta;
 
 $myid=0;
 $str2=str_replace('"', '',$data->photo);
@@ -39,10 +39,10 @@ $photoArray = explode(',',$str );
                     <a href="{{route('house.card',['id'=>$data->id])}}">
                         <div class="card-body">
                             <?php
-                                $cost=Numbers::toPersianNumbers($data->cost, true); // ۱,۵۱۳,۲۱۵
-                                $rent=Numbers::toPersianNumbers($data->rent, true);
-                                $meterage=Numbers::toPersianNumbers($data->meterage, true);
-                                $rooms=Numbers::toPersianNumbers($data->rooms, true);
+                                $cost=Verta::persianNumbers($data->cost);
+                                $rent=Verta::persianNumbers($data->rent);
+                                $meterage=Verta::persianNumbers($data->meterage);
+                                $rooms=Verta::persianNumbers($data->rooms);
                             ?>
                             @if($rors==1)
                                 <h5 class="card-title">قیمت:{{$cost}}  تومان</h5>
@@ -60,7 +60,7 @@ $photoArray = explode(',',$str );
                                         $dt =$data->created_at;
                                         $v2=new Verta($dt);
                                         $v3=$v2->formatDifference($v1);
-                                        echo Numbers::toPersianNumbers($v3);
+                                        echo Verta::persianNumbers($v3);
                                      ?>
                                 </span>
                                 @if($data->user['id']==$myid)
