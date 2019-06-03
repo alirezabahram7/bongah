@@ -6,6 +6,7 @@
 <body class="bluediv backgroundset">
     <div class="col-md-12" style="position:fixed;margin-top:0;margin-left:0;">
     @include('layouts/map')
+
 </div>
         <?php
         $page = $rors;

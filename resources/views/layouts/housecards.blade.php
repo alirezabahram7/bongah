@@ -69,7 +69,11 @@ $photoArray = explode(',',$str );
                                     <a href="{{route('profile.show',['id'=>$data->user['id']])}}">
                                         <span class="pull-right">
                                             @if($data->user->profile['photo']!=null)
-                                                <img title="{{$data->user['name']}}" class="img-thumbnail rounded-circle img-responsive" style="width:50px" src="{{$data->user->profile['photo']}}">
+                                                <?php
+                                                $avatar=str_replace('"', '',$data->user->profile['photo']);
+                                                $avatar2="/pic/".$avatar;
+                                                ?>
+                                                <img title="{{$data->user['name']}}" class="img-thumbnail rounded-circle img-responsive" style="width:50px" src="{{$avatar2}}">
                                             @else
                                                 <img title="{{$data->user['name']}}" class="img-thumbnail rounded-circle img-responsive" style="width:50px" src="/pic/nopro.png">
                                             @endif

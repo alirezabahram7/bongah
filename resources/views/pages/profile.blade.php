@@ -24,7 +24,11 @@ $page='m';}}
             <div class="col-sm-2">
             <a  class="pull-right">
             @if($user->profile['photo']!=null)
-            <img title="profile image" class="img-thumbnail rounded-circle img-responsive" src="{{$user->profile['photo']}}">
+                <?php
+                $avatar=str_replace('"', '',$user->profile['photo']);
+                $avatar2="/pic/".$avatar;
+                ?>
+            <img title="profile image" class="img-thumbnail rounded-circle img-responsive" src="{{$avatar2}}">
             @else
             <img title="profile image" class="img-thumbnail img-responsive" src="/pic/nopro.png">
             @endif

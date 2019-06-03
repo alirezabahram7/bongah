@@ -4,9 +4,13 @@
         <nav class="navbar navbar-expand-md bg-light navbar-light mainnav" style="direction:rtl;">
             @if(Auth::check())
                 <a class="nav-link" href="{{route('profile.show',['id'=>auth()->user()->id])}}">
-                    @if(auth()->user()->photo!=null)
+                    @if(auth()->user()->profile['photo']!=null)
+                        <?php
+                        $avatar=str_replace('"', '',auth()->user()->profile['photo']);
+                        $avatar2="/pic/".$avatar;
+                        ?>
                         <img title="{{auth()->user()->name}}" class="img-thumbnail rounded-circle img-responsive"
-                             style="width:50px" src="{{auth()->user()->photo}}">
+                             style="width:60px" src="{{$avatar2}}">
                     @else
                         <img title="{{auth()->user()->name}}" class="img-thumbnail rounded-circle img-responsive"
                              style="width:50px" src="/pic/nopro.png">
