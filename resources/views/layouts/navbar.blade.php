@@ -6,8 +6,8 @@
                 <a class="nav-link" href="{{route('profile.show',['id'=>auth()->user()->id])}}">
                     @if(auth()->user()->profile['photo']!=null)
                         <?php
-                        $avatar=str_replace('"', '',auth()->user()->profile['photo']);
-                        $avatar2="/pic/".$avatar;
+                        $avatar = str_replace('"', '', auth()->user()->profile['photo']);
+                        $avatar2 = "/pic/" . $avatar;
                         ?>
                         <img title="{{auth()->user()->name}}" class="img-thumbnail rounded-circle img-responsive"
                              style="width:60px" src="{{$avatar2}}">
@@ -109,7 +109,11 @@
                         </li>
                     @endif
                     <li class="nav-item mainnav">
-                        <a class="nav-link" href="#">درباره ما</a>
+                        @if($page=='ab')
+                            <a class="nav-link active" href="/aboutus">درباره ما</a>
+                        @else
+                            <a class="nav-link" href="/aboutus">درباره ما</a>
+                        @endif
                     </li>
 
                 </ul>

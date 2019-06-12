@@ -46,9 +46,7 @@ Route::get('/destfav/{hid}','MarkedController@destroy')->name('fav.destroy');
 
 Route::get('/favorites','HouseController@fav')->name('houses.fav');
 
-Route::get('/inserthouses', function () {
-    return view('pages/inserthome');
-});
+Route::get('/inserthouses','HouseController@create');
 
 Route::post('/addhouse','HouseController@store')->name('house.save');
 
@@ -65,3 +63,7 @@ Route::get('/delprofile/{id}','ProfileController@del')->name('profile.delete');
 
 
 Route::get('/mapping','HouseController@map');
+
+Route::get('/aboutus',function (){
+    return view('pages.aboutus',['page'=>'ab']);
+});

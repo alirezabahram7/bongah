@@ -7,7 +7,7 @@
         <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
           <h5 class="font-weight-bold text-uppercase mb-4">خرید</h5>
           <ul>
-            <li><a href="#">جستجوی همه خانه ها</a></li>
+            <li><a href="{{route('houses.show',['rors'=>1])}}">جستجوی همه خانه ها</a></li>
             <li><a href="#">خانه های تهران </a></li>
             <li><a href="#">خانه های مشهد </a></li>
             <li><a href="#">خانه های اصفهان </a></li>
@@ -21,7 +21,7 @@
         <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
           <h5 class="font-weight-bold text-uppercase mb-4">اجاره</h5>
           <ul>
-            <li><a href="#">جستجوی همه خانه ها</a></li>
+            <li><a href="{{route('houses.show',['rors'=>0])}}">جستجوی همه خانه ها</a></li>
             <li><a href="#">خانه های تهران </a></li>
             <li><a href="#">خانه های مشهد </a></li>
             <li><a href="#">خانه های اصفهان </a></li>

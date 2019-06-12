@@ -53,7 +53,15 @@
   <br>
   <div class="form-row">
     <div class="col">
-      <input type="text" class="form-control" name="city" placeholder="شهر">
+      <?php
+            $cities=\App\city::all();
+      ?>
+      <select name="city" id="city" class="form-control">
+        <option>انتخاب کنید</option>
+        @foreach($cities as $city)
+          <option value="{{ $city->id }}">{{$city->city}}</option>
+        @endforeach
+      </select>
     </div>
     <div class="col">
       <input type="text" class="form-control" name="location" placeholder="محله">

@@ -15,7 +15,7 @@ use App\Http\Controllers\Controller;
 
 class HouseController extends Controller
 {
-    //
+
     public function show($rors)
     {
         $req = null;
@@ -27,6 +27,12 @@ class HouseController extends Controller
     public function edit($id)
     {
         return view('pages/edithouse', ['house' => house::find($id)]);
+    }
+
+    public function create()
+    {
+        $cities = city::all();
+        return view('pages/inserthome', compact('cities'));
     }
 
     public function del($id)
@@ -76,16 +82,14 @@ class HouseController extends Controller
 
     public function store(Request $request)
     {
-
-        /* $location=App\location::firstOrNew(['district'=>$request->location],['city_id'=>$city->id]);
-         $location->save();*/
-
         $house = new House;
 
-        $house = new house;
+        $house->city = $request->city;
+        $location = App\location::firstOrNew(['district' => $request->location], ['city_id' => $request->city]);
+        $location->save();
 
-        //$house->location['district']=$request->location;
-        //$house->cities['city']=$request->city;
+        $house->location()->district= $request->location;
+        $house->location_id = $location->id;
 
         $house->user_id = auth()->user()->id;
         $house->build_year = $request->year;
@@ -107,8 +111,8 @@ class HouseController extends Controller
             $house->rent = 0;
         }
 
-        $house->city = 12;
-        $house->location_id = 12;
+
+
 
         $data = '';
         if ($request->hasfile('photo')) {

@@ -13,8 +13,8 @@
     function showPosition(position) {
         lat = position.coords.latitude;
         long = position.coords.longitude;
-       // var mymap = L.map('mapid').setView([35.70108201329604, 51.40118252358662], 13);
-        var mymap = L.map('mapid').setView([lat,long], 13);
+        var mymap = L.map('mapid').setView([35.70108201329604, 51.40118252358662], 13);
+        //var mymap = L.map('mapid').setView([lat,long], 13);
         //var marker = L.marker([35.700317, 51.427788]).addTo(mymap);
         /*var circle = L.circle([35.70108201329604, 51.40118252358662], {
             color: 'red',

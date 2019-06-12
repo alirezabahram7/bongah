@@ -470,7 +470,7 @@ $colcounter = 0;
 @endforeach
 @endif
 <div class="col-lg-3 col-md-5" style="padding-top: 20px">
-    {{ $house->links() }}
+    {{ $house->render() }}
 </div>
 </div>
 

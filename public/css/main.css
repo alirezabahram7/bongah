@@ -8,7 +8,9 @@
 
   div.row{
       margin: auto;
+      padding-top: 30px;
   }
+
 
   a{
     font-family: 'IranianSansRegular'; 
