@@ -94,7 +94,7 @@ class HouseController extends Controller
                     $query->whereIn('district', $srchArr);
                 })->WhereIn(DB::raw("substr('zipcode', 0, 4)"), $srchArr);
             }
-        }else {
+        } else {
             $minc = 0;
             $minr = 0;
             $minm = 0;
@@ -127,7 +127,6 @@ class HouseController extends Controller
                 $houses = $houses->where('type', $type);
             }
 
-
             if ($request->location != null) {
                 $location = $request->location;
                 $houses = $houses->whereHas('location', function ($query) use ($location) {
@@ -139,7 +138,7 @@ class HouseController extends Controller
                 $zipcode = $request->zipcode;
                 $houses = $houses = $houses->where(DB::raw("substr('zipcode', 0, 4)"), $zipcode);
             }
-            if ($request->city !='انتخاب کنید') {
+            if ($request->city != 'انتخاب کنید') {
                 $city = $request->city;
                 $houses = $houses->where('city', $city);
             }
