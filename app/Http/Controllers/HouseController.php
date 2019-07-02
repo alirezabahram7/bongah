@@ -21,7 +21,6 @@ class HouseController extends Controller
     {
         $req = null;
         $houses = House::where('RentorSell', $rors)->latest()->paginate(20);
-
         return view('pages/houses', ['house' => $houses, 'rors' => $rors, 'request' => $req]);
     }
 
@@ -58,21 +57,10 @@ class HouseController extends Controller
 
     public function search(Request $request)
     {
-        //$houses = House::with(['cities', 'location']);
-//return response($houses->get());
-        /*if ($request->state == 'buy') {
-            return view('pages/houses',
-                ['house' => house::latest()->paginate(20), 'rors' => 1, 'request' => $request]);
 
-        }
-        if ($request->state == 'rent') {
-            return view('pages/houses',
-                ['house' => house::latest()->paginate(20), 'rors' => 0, 'request' => $request]);
-        }*/
         if ($request->state == "agent") {
             return view('pages/agents', ['profile' => profile::latest(), 'request' => $request]);
         }
-
         if ($request->state == 'buy') {
             $houses = House::where('RentorSell', 1);
             $rors = 1;
@@ -106,9 +94,58 @@ class HouseController extends Controller
                     $query->whereIn('district', $srchArr);
                 })->WhereIn(DB::raw("substr('zipcode', 0, 4)"), $srchArr);
             }
+        }else {
+            $minc = 0;
+            $minr = 0;
+            $minm = 0;
+            $maxc = 999999999999999999;
+            $maxr = 999999999999999999;
+            $maxm = 999999999999999999;
+            if ($request->mincost != null) {
+                $minc = $request->mincost;
+            }
+            if ($request->maxcost != null) {
+                $maxc = $request->maxcost;
+            }
+            if ($request->minrent != null) {
+                $minr = $request->minrent;
+            }
+            if ($request->maxrent != null) {
+                $maxr = $request->maxrent;
+            }
+            if ($request->minmet != null) {
+                $minm = $request->minmet;
+            }
+            if ($request->maxmet != null) {
+                $maxm = $request->maxmet;
+            }
+            $houses = $houses->whereBetween('cost', [$minc, $maxc])->whereBetween('rent',
+                [$minr, $maxr])->whereBetween('meterage', [$minm, $maxm]);
+
+            if ($request->type != 'نوع') {
+                $type = $request->type;
+                $houses = $houses->where('type', $type);
+            }
+
+
+            if ($request->location != null) {
+                $location = $request->location;
+                $houses = $houses->whereHas('location', function ($query) use ($location) {
+                    $query->where('district', $location);
+                });
+            }
+
+            if ($request->zipcode != null) {
+                $zipcode = $request->zipcode;
+                $houses = $houses = $houses->where(DB::raw("substr('zipcode', 0, 4)"), $zipcode);
+            }
+            if ($request->city !='انتخاب کنید') {
+                $city = $request->city;
+                $houses = $houses->where('city', $city);
+            }
         }
 
-        $houses = $houses->latest()->paginate(20);
+        $houses = $houses->latest()->paginate(10);
 
         return view('pages/houses', ['house' => $houses, 'rors' => $rors, 'request' => $request]);
 
