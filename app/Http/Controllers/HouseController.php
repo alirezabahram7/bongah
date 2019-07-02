@@ -12,6 +12,7 @@ use App\profile;
 use App\location;
 use App\city;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class HouseController extends Controller
 {
@@ -57,38 +58,81 @@ class HouseController extends Controller
 
     public function search(Request $request)
     {
-
-        if ($request->state == 'buy') {
+        //$houses = House::with(['cities', 'location']);
+//return response($houses->get());
+        /*if ($request->state == 'buy') {
             return view('pages/houses',
                 ['house' => house::latest()->paginate(20), 'rors' => 1, 'request' => $request]);
 
         }
         if ($request->state == 'rent') {
             return view('pages/houses',
-                ['house' => house::all()->sortByDesc('created_at'), 'rors' => 0, 'request' => $request]);
+                ['house' => house::latest()->paginate(20), 'rors' => 0, 'request' => $request]);
+        }*/
+        if ($request->state == "agent") {
+            return view('pages/agents', ['profile' => profile::latest(), 'request' => $request]);
         }
-        if ($request->state == 'agent') {
-            return view('pages/agents', ['profile' => profile::all()->sortByDesc('created_at'), 'request' => $request]);
+
+        if ($request->state == 'buy') {
+            $houses = House::where('RentorSell', 1);
+            $rors = 1;
+        } else {
+            $houses = House::where('RentorSell', 0);
+            $rors = 0;
         }
+        if ($request->srch != null) {
+            $srch = $request->srch;
+        } elseif ($request->srch1 != null) {
+            $srch = $request->srch1;
+        } else {
+            $srch = null;
+        }
+
+        if ($srch != null) {
+            $srchArr = explode("  ", $srch);
+            $houses = $houses->whereHas('cities', function ($query) use ($srchArr) {
+                $query->whereIn('city', $srchArr);
+            });
+            if (sizeof($srchArr) == 1) {
+                $houses = $houses->orWhereHas('location', function ($query) use ($srchArr) {
+                    $query->whereIn('district', $srchArr);
+                })->orWhereIn(DB::raw("substr('zipcode', 0, 4)"), $srchArr);
+            } elseif (sizeof($srchArr) == 2) {
+                $houses = $houses->WhereHas('location', function ($query) use ($srchArr) {
+                    $query->whereIn('district', $srchArr);
+                });
+            } else {
+                $houses = $houses->WhereHas('location', function ($query) use ($srchArr) {
+                    $query->whereIn('district', $srchArr);
+                })->WhereIn(DB::raw("substr('zipcode', 0, 4)"), $srchArr);
+            }
+        }
+
+        $houses = $houses->latest()->paginate(20);
+
+        return view('pages/houses', ['house' => $houses, 'rors' => $rors, 'request' => $request]);
 
     }
 
-    public function fav()
+    public
+    function fav()
     {
         $houses = auth()->user()->markedHouses()->paginate(5);
 
         return view('pages/favorites', compact('houses'));
     }
 
-    public function store(Request $request)
-    {
+    public
+    function store(
+        Request $request
+    ) {
         $house = new House;
 
         $house->city = $request->city;
         $location = App\location::firstOrNew(['district' => $request->location], ['city_id' => $request->city]);
         $location->save();
 
-        $house->location()->district= $request->location;
+        $house->location()->district = $request->location;
         $house->location_id = $location->id;
 
         $house->user_id = auth()->user()->id;
@@ -110,8 +154,6 @@ class HouseController extends Controller
         } else {
             $house->rent = 0;
         }
-
-
 
 
         $data = '';
@@ -172,8 +214,10 @@ class HouseController extends Controller
 
     }
 
-    public function update(Request $request)
-    {
+    public
+    function update(
+        Request $request
+    ) {
         $this->validate($request, [
 
             //'photo' => 'required',
@@ -270,8 +314,10 @@ class HouseController extends Controller
 
     }
 
-    public function map(Request $request)
-    {
+    public
+    function map(
+        Request $request
+    ) {
 
         $data = $request->id;
         echo response()->json($data);
