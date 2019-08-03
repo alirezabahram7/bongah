@@ -48,7 +48,7 @@ class HouseController extends Controller
     public function myhouses()
     {
 
-        return view('pages/myhouses', ['house' => House::all()->sortByDesc('created_at')]);
+        return view('pages/myhouses', ['house' => House::where('user_id',auth()->id())->latest()->paginate(20)]);
     }
 
     public function card($id)

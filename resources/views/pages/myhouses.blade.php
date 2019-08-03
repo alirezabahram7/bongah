@@ -28,6 +28,7 @@
                 @include('layouts/housecards')
             @endif
         @endforeach
+        {{$house->render()}}
     </div>
 </body>
 

@@ -13,7 +13,7 @@ $photoArray = explode(',',$str );
     <div class="row">
 @endif
         <div class="col-sm">
-            <div class="col">
+            <div class="col" >
                 <div class="card card-columns center" style="width: 18rem;">
                     <div style="position:relative;">
                         <a href="{{route('house.card',['id'=>$data->id])}}">
@@ -23,7 +23,7 @@ $photoArray = explode(',',$str );
                                 <img class="card-img-top" src='/pic/noimg.png' alt="Card image cap">
                             @endif
                         </a>
-                        <div style="position: absolute;left:0;top:0; background-color:rgba(255,255,255,0.2);" class="col-md-12">
+                        <div style="position: absolute;left:0;top:0; background-color:rgba(255,255,255,0.2);text-align: right" class="col-md-12">
                             @if(Auth::check())
                                 <?php
                                     $myid=auth()->user()->id;
@@ -36,7 +36,7 @@ $photoArray = explode(',',$str );
                             @endif
                         </div>
                     </div>
-                    <a href="{{route('house.card',['id'=>$data->id])}}">
+                    <a href="{{route('house.card',['id'=>$data->id])}}" class="text-right">
                         <div class="card-body">
                             <?php
                                 $cost=Verta::persianNumbers($data->cost);
@@ -53,7 +53,7 @@ $photoArray = explode(',',$str );
                             <p class="card-text">{{$data->address}}</p>
                             <p class="card-text">{{$data->type}} *  {{$meterage}}متری  * {{$rooms}} خوابه</p>
                             <p class="card-text">{{$data->cities['city']}} * {{$data->location['district']}}</p>
-                            <div class="card-footer text-muted bluediv" dir="rtl">
+                            <div class="card-footer text-muted bluediv d-flex justify-content-between" dir="rtl">
                                 <span class="pull-left" style="color:black;" dir="rtl">
                                     <?php
                                         $v1= Verta::now();
@@ -64,7 +64,7 @@ $photoArray = explode(',',$str );
                                      ?>
                                 </span>
                                 @if($data->user['id']==$myid)
-                                    <span class="pull-right"><a href="{{route('house.edit',['id'=>$data->id])}}"><i class="fa fa-edit"></i></a></span>
+                                    <span class=""><a href="{{route('house.edit',['id'=>$data->id])}}"><i class="fa fa-edit"></i></a></span>
                                 @else
                                     <a href="{{route('profile.show',['id'=>$data->user['id']])}}">
                                         <span class="pull-right">
