@@ -50,7 +50,7 @@ Route::get('/inserthouses','HouseController@create');
 
 Route::post('/addhouse','HouseController@store')->name('house.save');
 
-Route::post('/updatehouse','HouseController@update')->name('house.update');
+Route::post('/updatehouse/{house}','HouseController@update')->name('house.update');
 
 Route::post('/updateprofile','ProfileController@update')->name('profile.update');
 

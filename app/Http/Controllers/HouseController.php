@@ -26,7 +26,9 @@ class HouseController extends Controller
 
     public function edit($id)
     {
-        return view('pages/edithouse', ['house' => house::find($id)]);
+        $cities = city::all();
+
+        return view('pages/edithouse', ['house' => house::find($id), 'cities' => $cities]);
     }
 
     public function create()
@@ -57,9 +59,31 @@ class HouseController extends Controller
 
     public function search(Request $request)
     {
+        if ($request->srch != null) {
+            $srch = $request->srch;
+        } elseif ($request->srch1 != null) {
+            $srch = $request->srch1;
+        } else {
+            $srch = null;
+        }
+        $srchArr = explode("  ", $srch);
 
         if ($request->state == "agent") {
-            return view('pages/agents', ['profile' => profile::latest(), 'request' => $request]);
+            $profiles = profile::whereHas('cities', function ($query) use ($srchArr) {
+                $query->where(function ($query) use ($srchArr) {
+                    foreach ($srchArr as $key) {
+                        $query->orWhere('cities.city', 'like', '%' . $key . '%');
+                    }
+                });
+            })->orWhereHas('location', function ($query) use ($srchArr) {
+                $query->whereIn('locations.district', $srchArr);
+            })->orWhere(function ($query) use ($srchArr) {
+                foreach ($srchArr as $key) {
+                    $query->orWhere('zip', 'like', $key . '%');
+                }
+            })->latest();
+
+            return view('pages/agents', ['profile' => $profiles, 'request' => $request]);
         }
         if ($request->state == 'buy') {
             $houses = House::where('RentorSell', 1);
@@ -68,26 +92,20 @@ class HouseController extends Controller
             $houses = House::where('RentorSell', 0);
             $rors = 0;
         }
-        if ($request->srch != null) {
-            $srch = $request->srch;
-        } elseif ($request->srch1 != null) {
-            $srch = $request->srch1;
-        } else {
-            $srch = null;
-        }
+
 
         if ($srch != null) {
-            $srchArr = explode("  ", $srch);
             $houses = $houses->whereHas('cities', function ($query) use ($srchArr) {
-                $query->where(function ($query) use($srchArr) {
-                    foreach ($srchArr as $key){
-                        $query->orWhere('cities.city', 'like','%'.$key.'%');
-                    }});
+                $query->where(function ($query) use ($srchArr) {
+                    foreach ($srchArr as $key) {
+                        $query->orWhere('cities.city', 'like', '%' . $key . '%');
+                    }
+                });
             })->orWhereHas('location', function ($query) use ($srchArr) {
                 $query->whereIn('locations.district', $srchArr);
-            })->orWhere(function ($query) use($srchArr) {
-                foreach ($srchArr as $key){
-                    $query->orWhere('zipcode', 'like',  $key .'%');
+            })->orWhere(function ($query) use ($srchArr) {
+                foreach ($srchArr as $key) {
+                    $query->orWhere('zipcode', 'like', $key . '%');
                 }
             });
 
@@ -133,7 +151,7 @@ class HouseController extends Controller
 
             if ($request->zipcode != null) {
                 $zipcode = $request->zipcode;
-                $houses = $houses = $houses->where('zipcode','LIKE',$zipcode.'%');
+                $houses = $houses = $houses->where('zipcode', 'LIKE', $zipcode . '%');
             }
             if ($request->city != 'انتخاب کنید') {
                 $city = $request->city;
@@ -249,25 +267,16 @@ class HouseController extends Controller
 
     public
     function update(
-        Request $request
+        House $house,Request $request
     ) {
-        $this->validate($request, [
+//        $house = House::findOrFail($id)->first();
 
-            //'photo' => 'required',
-            //'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-
-        ]);
-
-
-        $city = App\city::firstOrNew(['city' => $request->city]);
-        $city->save();
-        $location = App\location::firstOrNew(['district' => $request->location], ['city_id' => $city->id]);
+        $house->city = $request->city;
+        $location = App\location::firstOrNew(['district' => $request->location], ['city_id' => $request->city]);
         $location->save();
 
-        $house = App\house::find($request->id);
-
-        //$house->location['district']=$request->location;
-        //$house->cities['city']=$request->city;
+        $house->location()->district = $request->location;
+        $house->location_id = $location->id;
 
         $house->user_id = auth()->user()->id;
         $house->build_year = $request->year;
@@ -280,6 +289,8 @@ class HouseController extends Controller
         $house->cost = $request->cost;
         $house->meterage = $request->meterage;
         $house->comment = $request->comment;
+        $house->lat = $request->lat;
+        $house->long = $request->long;
 
         if (!$request->sell) {
             $house->rent = $request->rentcost;
@@ -287,24 +298,23 @@ class HouseController extends Controller
             $house->rent = 0;
         }
 
-        $house->city = $city->id;
-        $house->location_id = $location->id;
 
-        $data = null;
-
+        $data = '';
         if ($request->hasfile('photo')) {
 
-            foreach ($request->file('photo') as $image) {
-                $name = $image->getClientOriginalName();
-                $image->move(public_path() . '/pic/', $name);
-                $data[] = 'pic' . $name;
+            foreach ($request->file('photo') as $file) {
+                $name = uniqid() . '.' . $file->getClientOriginalExtension();
+                $uname = str_replace(' ', '_', $name);
+                $file->move(public_path() . '/pic/', $uname);
+                if ($data == '') {
+                    $data = $uname;
+                } else {
+                    $data = $data . ',' . $uname;
+                }
             }
+
+            $house->photo = $data;
         }
-
-
-        $house->photo = json_encode($data);
-
-
         if ($request->parking) {
             $house->parking = 1;
 
@@ -341,8 +351,9 @@ class HouseController extends Controller
         }
 
 
-        $house->update();
-        return redirect()->route('house.card', ['id' => $request->id]);
+        $house->save();
+        //dd($house);
+        return back()->with('success', 'خانه شما با موفقیت ویرایش شد');
 
 
     }

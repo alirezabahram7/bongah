@@ -54,7 +54,7 @@
               <button class="btn btn-info iransans" name="state" value="buy" style="height:50px;" ><i class="fa fa-search" style="font-size:20px;padding:10px;"></i></button>
              
             </div>
-            <input type="text" name="srch" class="form-control iransans" style="height:50px;" placeholder="شهر، محله، یا کدپستی را وارد کنید">
+            <input type="text" name="srch" class="form-control iransans" style="height:50px;" placeholder="شهر، محله، یا کدپستی را وارد کنید (با دو فاصله بین هر یک)">
             
             
           </div>
