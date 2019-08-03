@@ -79,21 +79,18 @@ class HouseController extends Controller
         if ($srch != null) {
             $srchArr = explode("  ", $srch);
             $houses = $houses->whereHas('cities', function ($query) use ($srchArr) {
-                $query->whereIn('city', $srchArr);
+                $query->where(function ($query) use($srchArr) {
+                    foreach ($srchArr as $key){
+                        $query->orWhere('cities.city', 'like','%'.$key.'%');
+                    }});
+            })->orWhereHas('location', function ($query) use ($srchArr) {
+                $query->whereIn('locations.district', $srchArr);
+            })->orWhere(function ($query) use($srchArr) {
+                foreach ($srchArr as $key){
+                    $query->orWhere('zipcode', 'like',  $key .'%');
+                }
             });
-            if (sizeof($srchArr) == 1) {
-                $houses = $houses->orWhereHas('location', function ($query) use ($srchArr) {
-                    $query->whereIn('district', $srchArr);
-                })->orWhereIn(DB::raw("substr('zipcode', 0, 4)"), $srchArr);
-            } elseif (sizeof($srchArr) == 2) {
-                $houses = $houses->WhereHas('location', function ($query) use ($srchArr) {
-                    $query->whereIn('district', $srchArr);
-                });
-            } else {
-                $houses = $houses->WhereHas('location', function ($query) use ($srchArr) {
-                    $query->whereIn('district', $srchArr);
-                })->WhereIn(DB::raw("substr('zipcode', 0, 4)"), $srchArr);
-            }
+
         } else {
             $minc = 0;
             $minr = 0;
@@ -136,7 +133,7 @@ class HouseController extends Controller
 
             if ($request->zipcode != null) {
                 $zipcode = $request->zipcode;
-                $houses = $houses = $houses->where(DB::raw("substr('zipcode', 0, 4)"), $zipcode);
+                $houses = $houses = $houses->where('zipcode','LIKE',$zipcode.'%');
             }
             if ($request->city != 'انتخاب کنید') {
                 $city = $request->city;

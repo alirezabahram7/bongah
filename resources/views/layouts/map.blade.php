@@ -2,7 +2,7 @@
 <div id="mapid" style="height: 1000px; width:98%; float:right;"></div>
 <div id='response'></div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/jquery-3.2.1.min.js"></script>
 <script>
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -39,12 +39,12 @@
         var theMarker = {};
 
 
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=sk.eyJ1IjoiaWxpYTciLCJhIjoiY2puNGF4dTkxMDhmaDNrczdhdDB3eDExYiJ9.qUz2--O4HCgXwwlV7boTHg', {
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaWxpYTciLCJhIjoiY2p5dmo3MzY2MGxrMDNtbnk3bmM3aHVpMiJ9.jRxqf0RUHWEpYXThmcIBEQ', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
             id: 'mapbox.streets',
             //id:'mapbox.satellite',
-            accessToken: 'your.mapbox.access.token'
+            accessToken: 'pk.eyJ1IjoiaWxpYTciLCJhIjoiY2p5dmo3MzY2MGxrMDNtbnk3bmM3aHVpMiJ9.jRxqf0RUHWEpYXThmcIBEQ'
         }).addTo(mymap);
 
         @foreach ($house as $i=>$data)
