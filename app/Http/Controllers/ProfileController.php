@@ -22,7 +22,7 @@ class ProfileController extends Controller
     {
         $req = null;
         if ($id == 0) {
-            return view('pages/agents', ['profile' => profile::all(), 'request' => $req]);
+            return view('pages/agents', ['profile' => profile::paginate(21), 'request' => $req]);
         }
 
     }

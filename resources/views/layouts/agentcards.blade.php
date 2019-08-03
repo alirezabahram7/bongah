@@ -10,7 +10,12 @@
         <div class="col">
             <div class="card card-columns pull-right" style="width: 18rem;">
                 @if($data->photo!=null)
-                    <img class="card-img-top" src='{{$data->photo}}' alt="Card image cap">
+                    <?php
+                    $str2=str_replace('"', '',$data->photo);
+                    $str1=str_replace('[', '',$str2);
+                    $str=str_replace(']', '',$str1);
+                ?>
+                    <img class="card-img-top" src='/pic/{{$str}}' alt="Card image cap">
                     @else
                     <img class="card-img-top" src='/pic/noimg.png' alt="Card image cap">
                     @endif

@@ -84,8 +84,6 @@ $(document).ready(function() {
 
 });
 </script>
-
-           
         </div></br>
         
         <div class="row">

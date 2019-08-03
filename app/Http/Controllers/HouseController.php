@@ -81,7 +81,7 @@ class HouseController extends Controller
                 foreach ($srchArr as $key) {
                     $query->orWhere('zip', 'like', $key . '%');
                 }
-            })->latest();
+            })->latest()->get();
 
             return view('pages/agents', ['profile' => $profiles, 'request' => $request]);
         }
