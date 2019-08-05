@@ -17,9 +17,9 @@ $colcounter=0;
 <?php
         if($colcounter>=3){
             $colcounter=0;
-            ?>
-            </div>
-        <?php     
+
+           echo "</div>";
+
         }
       ?>
       <?php
@@ -32,6 +32,9 @@ $colcounter=0;
     @include('layouts/housecards')
 
     @endforeach
+    </div>
+    <div class="p-5 d-flex justify-content-center">
+        {{$houses->render()}}
     </div>
     </div>
     <br>

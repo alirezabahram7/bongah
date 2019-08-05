@@ -11,31 +11,26 @@ $page = 'a';
 
 <br><br>
 <div class="limiter">
-    <div class="container-login100">
+    <div class="container-login100 d-flex flex-column">
+        <div class="justify-content-center">
         <form action="{{route('search.show')}}" method="POST">
             {{ csrf_field() }}
-            <br>
+
             <div class="form-row">
-                <div class="col">
-                    <input type="text" class="form-control" name="city2" placeholder="شهر">
+                <div class="col-s-12">
+                    <input type="text" class="form-control" name="srch2" placeholder="شهر، محله یا نام مشاور را وارد کنید (دو فاصله بین هر کلمه)">
                 </div>
-                <div class="col">
-                    <input type="text" class="form-control" name="location2" placeholder="محله">
-                </div>
-            </div>
+
             <br>
-            <div class="form-row">
-                <button class="btn btn-info" name="state" value="agent">! فیلتر کن</button>
+                <button class="btn btn-info" name="state" value="agent">جستجو  </button>
             </div>
             <br><br>
         </form>
-        <br><br><br>
+        </div>
         <?php
         $colcounter = 0;
         ?>
         <div class="container">
-            @if($request!=null)
-                @if($request->location2!=null && $request->city2!=null)
                     @foreach($profile as $key => $data)
                         <?php
                         if($colcounter >= 3){
@@ -43,66 +38,13 @@ $page = 'a';
                         echo "</div>";
                             }
                             ?>
-                        @if($data->isagent==1 && $data->location['district']==$request->location2 && $data->cities['city']==$request->city2)
+
                         <?php
                         $colcounter = $colcounter + 1;
                         ?>
                         @include('layouts/agentcards')
-                    @endif
-                    @endforeach
-                @endif
 
-                @if($request->location2!=null && $request->city2==null)
-                    @foreach($profile as $key => $data)
-                        <?php
-                        if($colcounter >= 3){
-                        $colcounter = 0;
-                        echo "</div>";
-                        }
-                        ?>
-                        @if($data->isagent==1 && $data->location['district']==$request->location2)
-                            <?php
-                                $colcounter = $colcounter + 1;
-                            ?>
-                            @include('layouts/agentcards')
-                        @endif
                     @endforeach
-                @endif
-
-                @if($request->location2==null && $request->city2!=null)
-                    @foreach($profile as $key => $data)
-                        <?php
-                        if($colcounter >= 3){
-                        $colcounter = 0;
-
-                        echo "</div>";
-                        }
-                        ?>
-                        @if($data->isagent==1 && $data->cities['city']==$request->city2)
-                            <?php
-                                    $colcounter = $colcounter + 1;
-                            ?>
-                            @include('layouts/agentcards')
-                        @endif
-                    @endforeach
-                @endif
-                @else
-                    @foreach($profile as $key => $data)
-                        <?php
-                        if($colcounter >= 3){
-                        $colcounter = 0;
-
-                            echo"</div><br>";
-                        }
-                        ?>
-                        @if($data->isagent==1)
-                            <?php
-                            $colcounter = $colcounter + 1;
-                            ?>
-                            @include('layouts/agentcards')
-                        @endif
-                    @endforeach
-            @endif
 
         </div>
         <div class="container p-3 d-flex justify-content-center">

@@ -75,7 +75,7 @@
                   <button class="btn btn-info iransans" name="state" value="rent" style="height:50px;"><i class="fa fa-search" style="font-size:20px;padding:10px;"></i></button>
                   
                 </div>
-                <input type="text" name="srch1" class="form-control iransans" style="height:50px;" placeholder="شهر، محله، یا کدپستی را وارد کنید">
+                <input type="text" name="srch1" class="form-control iransans" style="height:50px;" placeholder="شهر، محله، یا کدپستی را وارد کنید(با دو فاصله بین هر یک)">
                           </div>
           
         </div>
@@ -92,7 +92,7 @@
                   <button class="btn btn-info iransans" name="state" value="agent" style="height:50px;"><i class="fa fa-search" style="font-size:20px;padding:10px;"></i></button>
                 
                 </div>
-            <input type="text" name="srch2" class="form-control iransans" style="height:50px;" placeholder="شهر، محله، یا کدپستی را وارد کنید">
+            <input type="text" name="srch2" class="form-control iransans" style="height:50px;" placeholder="نام مشاور،شهر، محله، یا کدپستی را وارد کنید(با دو فاصله بین هر یک)">
             
               </div>
 

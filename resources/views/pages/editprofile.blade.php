@@ -63,14 +63,16 @@ $page='m';
 								<span class="focus-input100"></span>
 						</div>
 
-					<div class="wrap-input100 m-b-26 form-group row" style="margin-right:30px;">
-      						<label for="inputZip">شهر</label>
-                              @if($user->profile['city_id']!=null)
-							  <input class="input100" type="text" name="city" placeholder="شهر" value="{{$user->profile->cities['city']}}">
-                              @else
-                              <input class="input100" type="text" name="city" placeholder="شهر">
-                              @endif
-						<span class="focus-input100"></span>
+					<div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
+						 data-validate="شهر را وارد کنید">
+						<label for="inputZip">شهر</label>
+						<select name="city" id="city" class="form-control">
+							<option value="{{$user->profile['city_id']}}">{{$user->profile->cities['city']}}</option>
+							@foreach($cities as $city)
+								<option value="{{ $city->id }}">{{$city->city}}</option>
+							@endforeach
+						</select>
+
 					</div>
 						
 					<div class="wrap-input100 validate-input m-b-26 form-group row" style="margin-right:30px;">
@@ -155,7 +157,7 @@ $page='m';
 </div>
       
 <br/><br/>
-					<div class="container-login100-form-btn" style="margin-left:70px;">
+					<div class="container-login100-form-btn p-5 d-flex justify-content-center" >
 						<button type="submit" class="login100-form-btn" style="font-family:IRANSansWeb">
 							 ثبت تغییرات
 						</button>

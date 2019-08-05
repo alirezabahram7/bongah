@@ -29,7 +29,8 @@ class ProfileController extends Controller
 
     public function edit($id)
     {
-        return view('pages/editprofile', ['user' => User::find($id)]);
+        $cities = city::all();
+        return view('pages/editprofile', ['user' => User::find($id),'cities'=>$cities]);
     }
 
     public function del($id)
@@ -50,11 +51,8 @@ class ProfileController extends Controller
         ]);
 
         if ($request->city != null) {
-            $city = App\city::firstOrNew(['city' => $request->city]);
-            $city->save();
-
             if ($request->location != null) {
-                $location = App\location::firstOrNew(['district' => $request->location], ['city_id' => $city->id]);
+                $location = App\location::firstOrNew(['district' => $request->location], ['city_id' => $request->city]);
                 $location->save();
             }
         }
@@ -98,7 +96,7 @@ class ProfileController extends Controller
 
         if ($request->city != null) {
 
-            $profile->city_id = $city->id;
+            $profile->city_id = $request->city;
         }
 
         if ($request->location != null) {
@@ -111,16 +109,14 @@ class ProfileController extends Controller
         if ($request->hasfile('photo')) {
             foreach ($request->file('photo') as $image) {
                 $name = uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path() . '/pic/', $name);
+                $image->move('pic/', $name);
                 $data = $name;
             }
             $profile->photo = $data;
         }
 
-        $profile->photo = json_encode($data);
-
         $profile->update();
-        return redirect()->route('profile.show', ['id' => $request->id]);
+        return back()->with('message','پروفایل با موفقیت ویرایش شد');
 
 
     }
