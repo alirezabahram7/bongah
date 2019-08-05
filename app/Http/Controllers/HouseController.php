@@ -94,7 +94,9 @@ class HouseController extends Controller
                         }});
                 })->latest()->paginate(21);
             }
-
+            if(count($profiles)==0){
+                return redirect('/')->with('danger','موردی یافت نشد');
+            }
             return view('pages/agents', ['profile' => $profiles, 'request' => $request]);
         }
         if ($request->state == 'buy') {
@@ -171,7 +173,12 @@ class HouseController extends Controller
             }
         }
 
+
         $houses = $houses->latest()->paginate(10);
+
+        if(count($houses)==0){
+            return redirect('/')->with('danger','خانه ای یافت نشد');
+        }
         return view('pages/houses', ['house' => $houses, 'rors' => $rors, 'request' => $request]);
 
     }

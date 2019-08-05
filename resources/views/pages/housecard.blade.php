@@ -121,8 +121,8 @@ $page='h';
                             <li class="list-group-item text-right"><span class="pull-left">  {{$floor}} </span><strong>طبقه</strong></li>
                         @endif
 
-                        <li class="list-group-item text-right"><span class="pull-left">{{$build_year}}</span><strong>  :سال ساخت</strong></li>
-                        <li class="list-group-item text-right"><strong>   :نشانی </strong><br><strong> {{$house->address}}</strong>
+                        <li class="list-group-item text-right"><span class="pull-left">{{$build_year}}</span><strong>  سال ساخت</strong></li>
+                        <li class="list-group-item text-right text-center bg-secondary text-light"><strong>   نشانی </strong><br>{{$house->address}}
                         <li class="list-group-item text-right"><span class="pull-left">  {{$zipcode}} </span><strong>کد پستی</strong></li>
                         <li class="list-group-item text-right">
                         @if($house->parking==1)
@@ -150,7 +150,7 @@ $page='h';
                         @endif
                 
                         </li>
-                        <li class="card-footer text-muted" dir="rtl">
+                        <li class="card-footer text-light text-center bg-secondary" dir="rtl">
                             <?php
                                 $v1= Verta::now();
                                 $dt =$house->created_at;
@@ -165,15 +165,33 @@ $page='h';
         <div class="row">
             <div class="col">
                 </br></br>
-                <ul class="list-group">
+                <ul class="list-group text-right">
                     @if($house->user['id']==$myid)
-                        <span class="pull-right"><a href="{{route('house.edit',['id'=>$house->id])}}"><i class="fa fa-edit"></i><strong>ویرایش</strong></a></span>
+                        <span class="pull-right">
+                            <a href="{{route('house.edit',['id'=>$house->id])}}">
+                                <i class="fa fa-edit"></i>
+                                <strong>ویرایش</strong>
+                            </a>
+                        </span>
                     @else
-                        <a href="{{route('profile.show',['id'=>$house->user['id']])}}"><li class="list-group-item text-muted pull-right col-sm-4">  
-                        <strong>{{$house->user['name']}}</strong>&nbsp;&nbsp;
-                        <strong>مشاورشما</strong>&nbsp;&nbsp;&nbsp;
-                        <img title="profile image" class="img-thumbnail rounded-circle img-responsive" style="width:90px" src="{{$house->user->profile['photo']}}">
-                        </li></a>
+                            <li class="list-group-item col-sm-6 bg-secondary text-light">
+                                <?php
+                                $str2=str_replace('"', '',$house->user->profile['photo']);
+                                $str1=str_replace('[', '',$str2);
+                                $photo=str_replace(']', '',$str1);
+                                if($photo==null){
+                                    $photo='nopro.png';
+                                }
+                                ?>
+                                <a href="{{route('profile.show',['id'=>$house->user['id']])}}">
+                                            <img title="profile image" class="img-thumbnail rounded-circle img-responsive" style="width:10%" src="/pic/{{$photo}}">
+                                        <span class="font-weight-bold text-light text-left">
+                                           مشاورشما
+                                            {{$house->user['name']}}&nbsp;
+                                        </span>
+
+                                </a>
+                            </li>
                     @endif
                     <a href="#"><li class="list-group-item"><i class="fa fa-at"></i><strong>{{$house->user['email']}}</strong></li></a>
                     <a href="#"><li class="list-group-item"><i class="fa fa-phone-square"></i><strong>{{$house->user->profile['phonenum']}}</strong></li></a>

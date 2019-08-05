@@ -15,7 +15,14 @@ class ProfileController extends Controller
 {
     public function show($id)
     {
-        return view('pages/profile', ['user' => User::find($id)]);
+        $page = 'h';
+        if (auth()->check()) {
+            if ($id == auth()->id()) {
+                $page = 'm';
+            }
+        }
+        $houses=house::where('user_id',$id)->latest()->paginate('10');
+        return view('pages/profile', ['user' => User::find($id),'houses'=>$houses,'page'=>$page]);
     }
 
     public function list($id = 0)
