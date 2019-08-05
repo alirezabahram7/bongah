@@ -34,7 +34,7 @@ $page='h';
                 ?>   
             @else
                 <?php
-                $photo='/pic/noimg.png';
+                $photo='noimg.png';
                 ?>   
             @endif
             <div class="card card-columns pull-right" style="width: 46rem;">
@@ -42,7 +42,7 @@ $page='h';
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <?php
-                            $str2=str_replace('"', '',$house->photo);
+                            $str2=str_replace('"', '',$photo);
                             $str1=str_replace('[', '',$str2);
                             $str=str_replace(']', '',$str1);
                             $myArray = explode(',',$str );

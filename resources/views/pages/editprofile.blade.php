@@ -53,7 +53,7 @@ $page='m';
 				
 					<div class="wrap-input100 m-b-26 form-group row" style="margin-right:30px;">
 							  <label for="inputZip">ايميل</label>
-							  <input class="input100" type="text" name="email" placeholder="ایمیل" value="{{$user->email}}">
+							  <input class="input100" type="text" name="email" placeholder="ایمیل" value="{{$user->email}}" required />
 								<span class="focus-input100"></span>
 						</div>
 

@@ -45,21 +45,21 @@ $page = 'm';
                      data-validate="تعداد اتاق را وارد کنید">
                     <label for="inputZip">تعداد اتاق</label>
                     <input class="form-control" type="text" name="rooms" placeholder="تعداد اتاق"
-                           value="{{$house->rooms}}">
+                           value="{{$house->rooms}}" required />
 
                 </div>
 
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate=" طبقه را وارد کنید ">
                     <label for="inputZip">طبقه</label>
-                    <input class="form-control" type="text" name="floor" placeholder="طبقه" value="{{$house->floor}}">
+                    <input class="form-control" type="text" name="floor" placeholder="طبقه" value="{{$house->floor}}" required/>
 
                 </div>
 
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="شهر را وارد کنید">
                     <label for="inputZip">شهر</label>
-                    <select name="city" id="city" class="form-control">
+                    <select name="city" id="city" class="form-control" required>
                         <option value="{{$house->city}}">{{$house->cities->city}}</option>
                         @foreach($cities as $city)
                             <option value="{{ $city->id }}">{{$city->city}}</option>
@@ -72,14 +72,14 @@ $page = 'm';
                      data-validate="محله را وارد کنید">
                     <label for="inputZip">محله</label>
                     <input class="form-control" type="text" name="location" placeholder="محله"
-                           value="{{$house->location->district}}">
+                           value="{{$house->location->district}}" required />
 
                 </div>
 
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="نشانی را وارد کنید">
                     <label for="address">نشانی</label>
-                    <textarea class="form-control" name="address" id="address" rows="3">{{$house->address}}</textarea>
+                    <textarea class="form-control" name="address" id="address" rows="3" required>{{$house->address}}</textarea>
                 </div>
 
                 <div class="col-md-12 m-b-26 form-group row" style="margin-right:30px;">
@@ -179,7 +179,7 @@ $page = 'm';
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="قیمت را وارد کنید">
                     <label for="inputZip">قیمت فروش یا رهن</label>
-                    <input class="form-control" type="text" name="cost" placeholder="قیمت فروش یا رهن" value="{{$house->cost}}">
+                    <input class="form-control" type="text" name="cost" placeholder="قیمت فروش یا رهن" value="{{$house->cost}}" required />
 
                 </div>
 
@@ -192,7 +192,7 @@ $page = 'm';
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="متراژ را وارد کنید">
                     <label for="meterage">متراژ</label>
-                    <input class="form-control" type="text" name="meterage" placeholder="متراژ" value="{{$house->meterage}}">
+                    <input class="form-control" type="text" name="meterage" placeholder="متراژ" value="{{$house->meterage}}" required />
 
                 </div>
 
@@ -204,7 +204,7 @@ $page = 'm';
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="سال ساخت را وارد کنید">
                     <label for="year">سال ساخت</label>
-                    <select id="year" name="year" class="form-control">
+                    <select id="year" name="year" class="form-control" required>
                         <option selected>{{$house->build_year}}</option>
                         <?php
                         $v = Verta::today();

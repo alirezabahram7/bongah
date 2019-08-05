@@ -104,7 +104,7 @@
                     <ul class="list-group text-right">
                         <li class="list-group-item text-center font-weight-bold bg-secondary text-light"><i
                                     class="fa fa-address-card fa-1x"></i></li>
-                        <li class="list-group-item"><i class="fa fa-at"></i><strong>{{$user->email}}</strong></li>
+                        <li class="list-group-item"><i class="fa fa-at"></i><a href="mailto:{{$user->email}}?subject=bongah.net"><strong>{{$user->email}}</strong></a></li>
                         <li class="list-group-item"><i class="fa fa-phone-square"></i><strong>
                                 <a href="tell:{{$user->profile['phonenum']}}">{{$user->profile['phonenum']}}</a>
                             </strong>

@@ -33,33 +33,33 @@ $page = 'm';
                 </div>
             @endif
 
-            <form class="login100-form validate-form" action="{{route('house.save')}}" method="post"
-                  enctype="multipart/form-data">
+            <form class="login100-form validate-form needs-validation"  action="{{route('house.save')}}" method="post"
+                enctype="multipart/form-data">
 
                 {{ csrf_field() }}
 
                 <input type="hidden" name="lat" id="lat">
                 <input type="hidden" name="long" id="long">
 
-                <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
+                <div class="col-md-12 m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="تعداد اتاق را وارد کنید">
                     <label for="inputZip">تعداد اتاق</label>
-                    <input class="form-control" type="text" name="rooms" placeholder="تعداد اتاق">
+                    <input class="form-control" type="text" name="rooms" placeholder="تعداد اتاق" required />
                     
                 </div>
 
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate=" طبقه را وارد کنید ">
                     <label for="inputZip">طبقه</label>
-                    <input class="form-control" type="text" name="floor" placeholder="طبقه">
+                    <input class="form-control" type="text" name="floor" placeholder="طبقه" required />
                     
                 </div>
 
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="شهر را وارد کنید">
                     <label for="inputZip">شهر</label>
-                    <select name="city" id="city" class="form-control">
-                        <option>انتخاب کنید</option>
+                    <select name="city" id="city" class="form-control" required>
+                        <option value="">انتخاب کنید</option>
                         @foreach($cities as $city)
                             <option value="{{ $city->id }}">{{$city->city}}</option>
                         @endforeach
@@ -67,17 +67,16 @@ $page = 'm';
                     
                 </div>
 
-                <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
+                <div class="col-md-12 m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="محله را وارد کنید">
                     <label for="inputZip">محله</label>
-                    <input class="form-control" type="text" name="location" placeholder="محله">
-                    
+                    <input class="form-control" type="text" id="location" name="location" placeholder="محله" required />
                 </div>
 
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="نشانی را وارد کنید">
                     <label for="address">نشانی</label>
-                    <textarea class="form-control" name="address" id="address" rows="3"></textarea>
+                    <textarea class="form-control" name="address" id="address" rows="3" required></textarea>
                 </div>
 
                 <div class="col-md-12 m-b-26 form-group row" style="margin-right:30px;">
@@ -146,7 +145,7 @@ $page = 'm';
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="قیمت را وارد کنید">
                     <label for="inputZip">قیمت فروش یا رهن</label>
-                    <input class="form-control" type="text" name="cost" placeholder="قیمت فروش یا رهن">
+                    <input class="form-control" type="text" name="cost" placeholder="قیمت فروش یا رهن" required />
                     
                 </div>
 
@@ -159,7 +158,7 @@ $page = 'm';
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="متراژ را وارد کنید">
                     <label for="meterage">متراژ</label>
-                    <input class="form-control" type="text" name="meterage" placeholder="متراژ">
+                    <input class="form-control" type="number" name="meterage" placeholder="متراژ" required />
                     
                 </div>
 
@@ -171,8 +170,8 @@ $page = 'm';
                 <div class="col-md-12 validate-input m-b-26 form-group row" style="margin-right:30px;"
                      data-validate="سال ساخت را وارد کنید">
                     <label for="year">سال ساخت</label>
-                    <select id="year" name="year" class="form-control">
-                        <option selected>انتخاب سال ساخت...</option>
+                    <select id="year" name="year" class="form-control" required>
+                        <option selected value="">انتخاب سال ساخت...</option>
                         <?php
                         $v = Verta::today();
                         ?>
